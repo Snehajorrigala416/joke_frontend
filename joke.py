@@ -1,6 +1,6 @@
 import gradio as gr
 import requests
-FastAPI_URL = "http://127.0.0.1:8000/joke"
+FastAPI_URL = "https://joke-backend-2-nmi6.onrender.com/joke"
 def joke(prompt,category,language):
     response=requests.post(FastAPI_URL,json={"prompt":prompt,
     "category":category,
@@ -32,4 +32,8 @@ demo=gr.Interface(
     )
     ],
 outputs=gr.Textbox(label="Anser here",lines=20))
-demo.launch()
+if __name__=="__main__":
+    demo.launch(
+        server_name="0.0.0.0",
+        server_port=int(os.environ.get("PORT",7860))
+    )
